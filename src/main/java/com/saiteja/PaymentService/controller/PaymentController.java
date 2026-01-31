@@ -9,15 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/api/v1/payment")
 public class PaymentController {
 
     @Autowired
     private PaymentService paymentService;
 
     @PostMapping
-    public ResponseEntity<Long> doPayment(@RequestBody PaymentRequest paymentRequest) {
-        return new ResponseEntity<>(paymentService.doPayment(paymentRequest), HttpStatus.CREATED);
+    public ResponseEntity<String> doPayment(@RequestBody PaymentRequest paymentRequest) {
+        paymentService.doPayment(paymentRequest);
+        return new ResponseEntity<>("Payment processed successfully", HttpStatus.CREATED);
     }
 
     @GetMapping("/{orderId}")
